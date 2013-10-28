@@ -16,7 +16,17 @@
           <h1>Curious Demigod</h1>
           <p>By <a rel="author" href="/author/passcod">passcod</a></p>
           <p>Posted on <a href="<%= url[:relative] %>"><date datetime="<%= date.rfc3339 %>"><%= date.strftime '%b %-d' %></date></a></p>
-          <p>This <a rel="main tag" href="/tag/musing">musing</a> is also tagged as <a rel="tag" href="/tag/foobar">foobar</a> and <a rel="tag" href="/tag/auto-thief">auto-thief</a></p>
+          <% tags = metadata[:post]['tags']; if tags
+            %><p>This <% if tags.length == 1 %>is a <% end %><%=
+              a "/tag/#{tags.first}", tags.first, rel: 'main tag'
+              %> <%
+              unless tags.length == 1
+                tags.shift
+                tags.map! { |t| a "/tag/#{t}", t, rel: 'tag' }
+              %>is also tagged as <%= tags.to_sentence %><%
+              end
+            %></p><%
+          end %>
           <p>It has two <abbr title="Parent posts are posts that inspired, led to, or are obsoleted by this one.">parents</abbr>: <a rel="up" href="/2013/sep/13/parenting">Parenting</a> and <a rel="up" href="/2013/oct/25/new-blog-new-format">New Blog, New Format</a></p>
         </header>
         <%= content %>
