@@ -16,7 +16,7 @@
           <h1>Curious Demigod</h1>
           <p>By <a rel="author" href="/author/passcod">passcod</a></p>
           <p>Posted on <a href="<%= url[:relative] %>"><date datetime="<%= date.rfc3339 %>"><%= date.strftime '%b %-d' %></date></a></p>
-          <% tags = metadata[:post]['tags']; if tags
+          <% tags = metadata[:post]['tags']; if tags && !tags.empty?
             %><p>This <% if tags.length == 1 %>is a <% end %><%=
               a "/tag/#{tags.first}", tags.first, rel: 'main tag'
               %> <%
@@ -27,14 +27,16 @@
               end
             %></p><%
           end %>
-          <p>It has two <abbr title="Parent posts are posts that inspired, led to, or are obsoleted by this one.">parents</abbr>: <a rel="up" href="/2013/sep/13/parenting">Parenting</a> and <a rel="up" href="/2013/oct/25/new-blog-new-format">New Blog, New Format</a></p>
+          <% parents = metadata[:post]['parents']; if parents && !parents.empty?
+          %><p>It has <%= parents.length.to_words %> <abbr title="Parent posts are posts that inspired, led to, or are obsoleted by this one."><%= "parent".pluralize parents.length %></abbr>: <%= parents.map { |p| a '/' + p.sub(/^\/?/,''), p.split('/').last.gsub('-', ' ').humanize, rel: 'up', title: 'excerpt' }.to_sentence %></p><% end %>
         </header>
         <%= content %>
         <footer>
           <p>Travel back to the <a rel="prev" href="/prev">previous</a> article</p>
           <p>Skip forward to the <a rel="next" href="/next">next</a> one</p>
           <p>Praise, thoughts, criticism? <a href="https://twitter.com/passcod">@passcod</a> or <a href="mailto:ask@passcod.name">ask@passcod.name</a></p>
-          <p>This post has one <abbr title="Child posts are posts that were inspired, are updates on, obsolete, or follow this one.">child</abbr>: <a rel="down" href="/2013/dec/04/plane-trees">Plane Trees</a></p>
+          <% children = metadata[:post]['children']; if children && !children.empty?
+          %><p>This post has <%= children.length.to_words %> <abbr title="Child posts are posts that were inspired, are updates on, obsolete, or follow this one."><%= "child".pluralize children.length %></abbr>: <%= children.map { |p| a '/' + p.sub(/^\/?/,''), p.split('/').last.gsub('-', ' ').humanize, rel: 'down', title: 'excerpt' }.to_sentence %></p><% end %>
         </footer>
       </article>
     </div>
