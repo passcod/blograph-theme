@@ -14,7 +14,7 @@
       <article>
         <header>
           <h1>Curious Demigod</h1>
-          <p>By <a rel="author" href="/author/passcod">passcod</a></p>
+          <p rel="author">By <%= author %></p>
           <p>Posted on <a href="<%= url[:relative] %>"><date datetime="<%= date.rfc3339 %>"><%= date.strftime '%b %-d' %></date></a></p>
           <% tags = metadata[:post]['tags']; if tags && !tags.empty?
             %><p>This <% if tags.length == 1 %>is a <% end %><%=

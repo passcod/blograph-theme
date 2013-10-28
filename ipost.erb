@@ -1,0 +1,5 @@
+<article>
+  <h1><%= a url[:relative], title %></h1>
+  <p><date datetime="<%= date.rfc3339 %>"><%= date.strftime '%b %-d' %>
+    &mdash; <%= content[0..130].gsub(%r{</?p>},'') %>&hellip;</p>
+</article>
