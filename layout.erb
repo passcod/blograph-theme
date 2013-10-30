@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title><%= "#{title} - " if defined?(title) && title %>Blograph</title>
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Félix Saparelli</a></h1>
+      <p class="subtitle">a.k.a. passcod</p>
+    </header>
+      <%= yield %>
+    <div class="container">
+    </div>
+    <footer>
+      <button class="flip" title="Click to turn lights on xor off">day</button>
+      <p>Dedicated to the <a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/">Public Domain</a></p>
+    </footer>
+    <script>
+      var flip = document.querySelector('.flip'),
+        html = document.querySelector('html'),
+        flipper = function() {
+          if (/flipped/.test(html.className)) {
+            html.className = html.className.replace('flipped', '');
+            flip.innerHTML = 'day';
+          } else {
+            html.className += ' flipped';
+            flip.innerHTML = 'night';
+          }
+        };
+      flip.addEventListener('click', flipper, null);
+    </script>
+  </body>
+</html>

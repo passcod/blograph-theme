@@ -1,62 +1,28 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title><%= title %> - <%= metadata[:site]['title'] %></title>
-    <link rel="stylesheet" href="/style.css">
-  </head>
-  <body>
-    <header>
-      <h1><a href="/">Félix Saparelli</a></h1>
-      <p class="subtitle">a.k.a. passcod</p>
-    </header>
-    <div class="container">
-      <article>
-        <header>
-          <h1>Curious Demigod</h1>
-          <p rel="author">By <%= author %></p>
-          <p>Posted on <a href="<%= url[:relative] %>"><date datetime="<%= date.rfc3339 %>"><%= date.strftime '%b %-d' %></date></a></p>
-          <% tags = metadata[:post]['tags']; if tags && !tags.empty?
-            %><p>This <% if tags.length == 1 %>is a <% end %><%=
-              a "/tag/#{tags.first}", tags.first, rel: 'main tag'
-              %> <%
-              unless tags.length == 1
-                tags.shift
-                tags.map! { |t| a "/tag/#{t}", t, rel: 'tag' }
-              %>is also tagged as <%= tags.to_sentence %><%
-              end
-            %></p><%
-          end %>
-          <% parents = metadata[:post]['parents']; if parents && !parents.empty?
-          %><p>It has <%= parents.length.to_words %> <abbr title="Parent posts are posts that inspired, led to, or are obsoleted by this one."><%= "parent".pluralize parents.length %></abbr>: <%= parents.map { |p| a '/' + p.sub(/^\/?/,''), p.split('/').last.gsub('-', ' ').humanize, rel: 'up', title: 'excerpt' }.to_sentence %></p><% end %>
-        </header>
-        <%= content %>
-        <footer>
-          <p>Travel back to the <a rel="prev" href="/prev">previous</a> article</p>
-          <p>Skip forward to the <a rel="next" href="/next">next</a> one</p>
-          <p>Praise, thoughts, criticism? <a href="https://twitter.com/passcod">@passcod</a> or <a href="mailto:ask@passcod.name">ask@passcod.name</a></p>
-          <% children = metadata[:post]['children']; if children && !children.empty?
-          %><p>This post has <%= children.length.to_words %> <abbr title="Child posts are posts that were inspired, are updates on, obsolete, or follow this one."><%= "child".pluralize children.length %></abbr>: <%= children.map { |p| a '/' + p.sub(/^\/?/,''), p.split('/').last.gsub('-', ' ').humanize, rel: 'down', title: 'excerpt' }.to_sentence %></p><% end %>
-        </footer>
-      </article>
-    </div>
-    <footer>
-      <button class="flip" title="Click to turn lights on xor off">day</button>
-      <p>Dedicated to the <a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/">Public Domain</a></p>
-    </footer>
-    <script>
-      var flip = document.querySelector('.flip'),
-        html = document.querySelector('html'),
-        flipper = function() {
-          if (/flipped/.test(html.className)) {
-            html.className = html.className.replace('flipped', '');
-            flip.innerHTML = 'day';
-          } else {
-            html.className += ' flipped';
-            flip.innerHTML = 'night';
-          }
-        };
-      flip.addEventListener('click', flipper, null);
-    </script>
-  </body>
-</html>
+<article>
+  <header>
+    <h1>Curious Demigod</h1>
+    <p rel="author">By <%= post.author %></p>
+    <p>Posted on <a href="<%= post.link %>"><date datetime="<%= post.date.rfc3339 %>"><%= post.date.strftime '%b %-d' %></date></a></p>
+    <% tags = post.metadata['tags']; if tags && !tags.empty?
+      %><p>This <% if tags.length == 1 %>is a <% end %><%=
+        a "/tag/#{tags.first}", tags.first, rel: 'main tag'
+        %> <%
+        unless tags.length == 1
+          tags.shift
+          tags.map! { |t| a "/tag/#{t}", t, rel: 'tag' }
+        %>is also tagged as <%= tags.to_sentence %><%
+        end
+      %></p><%
+    end %>
+    <% parents = post.metadata['parents']; if parents && !parents.empty?
+    %><p>It has <%= parents.length.to_words %> <abbr title="Parent posts are posts that inspired, led to, or are obsoleted by this one."><%= "parent".pluralize parents.length %></abbr>: <%= parents.map { |p| a '/' + p.sub(/^\/?/,''), p.split('/').last.gsub('-', ' ').humanize, rel: 'up', title: 'excerpt' }.to_sentence %></p><% end %>
+  </header>
+  <%= post.render %>
+  <footer>
+    <p>Travel back to the <a rel="prev" href="/prev">previous</a> article</p>
+    <p>Skip forward to the <a rel="next" href="/next">next</a> one</p>
+    <p>Praise, thoughts, criticism? <a href="https://twitter.com/passcod">@passcod</a> or <a href="mailto:ask@passcod.name">ask@passcod.name</a></p>
+    <% children = post.metadata['children']; if children && !children.empty?
+    %><p>This post has <%= children.length.to_words %> <abbr title="Child posts are posts that were inspired, are updates on, obsolete, or follow this one."><%= "child".pluralize children.length %></abbr>: <%= children.map { |p| a '/' + p.sub(/^\/?/,''), p.split('/').last.gsub('-', ' ').humanize, rel: 'down', title: 'excerpt' }.to_sentence %></p><% end %>
+  </footer>
+</article>
