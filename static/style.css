@@ -17,6 +17,10 @@ h1, h2, h3, h4, h5, h6, th, thead, tfoot {
   padding: 0;
 }
 
+h2 {
+  color: #494949;
+}
+
 button {
   border: 0px;
   background: none;
@@ -68,8 +72,12 @@ article > header p, article > footer p {
   background: black;
 }
 
-.flipped h1, .flipped h2, .flipped h3, .flipped h4, .flipped h5, .flipped h6, .flipped th, .flipped thead, .flipped tfoot {
+.flipped h1, .flipped h3, .flipped h4, .flipped h5, .flipped h6, .flipped th, .flipped thead, .flipped tfoot {
   color: white;
+}
+
+.flipped h2 {
+  color: #AAA;
 }
 
 .flipped a, .flipped a:active, .flipped a:visited, .flipped button {
