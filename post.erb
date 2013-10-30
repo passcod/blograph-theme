@@ -1,6 +1,6 @@
 <article>
   <header>
-    <h1>Curious Demigod</h1>
+    <h1><%= post.title %></h1>
     <p rel="author">By <%= post.author %></p>
     <p>Posted on <a href="<%= post.link %>"><date datetime="<%= post.date.rfc3339 %>"><%= post.date.strftime Blograph.meta['locale']['date'] %></date></a></p>
     <% if !post.tags.empty?; tags = post.tags.dup
