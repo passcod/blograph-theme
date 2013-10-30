@@ -18,8 +18,8 @@
   </header>
   <%= post.render %>
   <footer>
-    <p>Travel back to the <a rel="prev" href="/prev">previous</a> article</p>
-    <p>Skip forward to the <a rel="next" href="/next">next</a> one</p>
+    <% if post.previous %><p>Travel back to the <a rel="prev" href="<%= post.previous.link %>" title="<%= post.previous.excerpt %>&hellip;">previous</a> article</p><% end %>
+    <% if post.next %><p>Skip forward to the <a rel="next" href="<%= post.next.link %>" title="<%= post.next.excerpt %>&hellip;">next</a> <%= post.previous ? 'one' : 'article' %></p><% end %>
     <p><%= Blograph.meta['locale']['feedback'] %></p>
     <% if !post.children.empty? %><p>This post has <%= post.children.length.to_words %> <abbr title="<%= Blograph.meta['locale']['children'] %>"><%= "child".pluralize post.children.length %></abbr>: <%= post.children.map { |p| a p.link, p.title, rel: 'down', title: "#{p.excerpt}&hellip;" }.to_sentence %></p><% end %>
   </footer>
