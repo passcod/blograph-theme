@@ -3,14 +3,14 @@
     <h1>Curious Demigod</h1>
     <p rel="author">By <%= post.author %></p>
     <p>Posted on <a href="<%= post.link %>"><date datetime="<%= post.date.rfc3339 %>"><%= post.date.strftime '%b %-d' %></date></a></p>
-    <% tags = post.metadata['tags']; if tags && !tags.empty?
+    <% if !post.tags.empty?; tags = post.tags.dup
       %><p>This <% if tags.length == 1 %>is a <% end %><%=
         a "/tag/#{tags.first}", tags.first, rel: 'main tag'
         %> <%
         unless tags.length == 1
-          tags.shift
-          tags.map! { |t| a "/tag/#{t}", t, rel: 'tag' }
-        %>is also tagged as <%= tags.to_sentence %><%
+          tags.shift  
+          %>is also tagged as <%= tags.map { |t|
+            a "/tag/#{t}", t, rel: 'tag' }.to_sentence %><%
         end
       %></p><%
     end %>
