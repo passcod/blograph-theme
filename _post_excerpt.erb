@@ -1,5 +1,5 @@
 <article>
   <h1><%= a post.link, post.title %></h1>
-  <p><date datetime="<%= post.date.rfc3339 %>"><%= post.date.strftime '%b %-d' %>
-    &mdash; <%= post.render[0..130].gsub(%r{</?p>},'') %>&hellip;</p>
+  <p><date datetime="<%= post.date.rfc3339 %>"><%= post.date.strftime Blograph.meta['locale']['date'] %>
+    &mdash; <%= post.excerpt %>&hellip;</p>
 </article>

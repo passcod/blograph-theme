@@ -2,20 +2,22 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title><%= "#{title} - " if defined?(title) && title %>Blograph</title>
+    <title><%= "#{title} - " if defined?(title) && title %><%= Blograph.meta['title'] %></title>
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
     <header>
-      <h1><a href="/">Félix Saparelli</a></h1>
-      <p class="subtitle">a.k.a. passcod</p>
+      <h1><a href="/"><%= Blograph.meta['header']['title'] %></a></h1>
+      <p class="subtitle"><%= Blograph.meta['header']['subtitle'] %></p>
     </header>
       <%= yield %>
     <div class="container">
     </div>
     <footer>
-      <button class="flip" title="Click to turn lights on xor off">day</button>
-      <p>Dedicated to the <a rel="license" href="https://creativecommons.org/publicdomain/zero/1.0/">Public Domain</a></p>
+      <button class="flip" title="<%= Blograph.meta['locale']['flip'] %>">day</button>
+      <% feet = Blograph.meta['footer']
+      feet = [feet] if feet.is_a? String
+      feet.each do |foot| %><p><%= foot %></p><% end %>
     </footer>
     <script>
       var flip = document.querySelector('.flip'),
