@@ -3,6 +3,10 @@
     <h1><%= post.title %></h1>
     <p rel="author">By <%= post.author %></p>
     <p>Posted on <a href="<%= post.link %>"><date datetime="<%= post.date.rfc3339 %>"><%= post.date.strftime Blograph.meta['locale']['date'] %></date></a></p>
+    <% if post.tags.include?('nano') && post.tags.include?('chapter')
+      words = post.excerpt(-1).split.size
+      %><p><%= words < 21 ? words.to_words.capitalize : words
+        %> words (<%= Blograph::Post.all.select { |p| p.tags.include?('nano') && p.tags.include?('chapter') }.reduce(0) { |memo,p| memo + p.excerpt(-1).split.size } %> total)</p><% end %>
     <% if !post.tags.empty?; tags = post.tags.dup
       %><p>This <% if tags.length == 1 %>is a <% end %><%=
         a "/tag/#{tags.first}", tags.first, rel: 'main tag'
