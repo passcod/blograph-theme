@@ -43,6 +43,21 @@ p {
   text-align: justify;
 }
 
+
+hr {
+  border: none;
+  padding: 0.5rem;
+  position: relative;
+}
+
+hr:before {
+  color: black;
+  content: '⁂';
+  left: 50%;
+  position: absolute;
+  top: 50%;
+}
+
 body > header {
   border-bottom: 1px solid #494949;
   padding-bottom: 1em;
@@ -72,7 +87,7 @@ article > header p, article > footer p {
   background: black;
 }
 
-.flipped h1, .flipped h3, .flipped h4, .flipped h5, .flipped h6, .flipped th, .flipped thead, .flipped tfoot {
+.flipped h1, .flipped h3, .flipped h4, .flipped h5, .flipped h6, .flipped th, .flipped thead, .flipped tfoot, .flipped hr:before {
   color: white;
 }
 
