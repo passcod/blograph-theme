@@ -1,3 +1,7 @@
+* {
+  transition: 10s
+}
+
 html {
   font-family: monospace;
   font-size: 14px;
