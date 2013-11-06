@@ -82,9 +82,14 @@ article > header p, article > footer p {
   text-align: right;
 }
 
-.flipped {
+.flipped, mark {
   color: #AAA;
   background: black;
+}
+
+.flipped mark {
+  color: #494949;
+  background: white;
 }
 
 .flipped h1, .flipped h3, .flipped h4, .flipped h5, .flipped h6, .flipped th, .flipped thead, .flipped tfoot, .flipped hr:before {
