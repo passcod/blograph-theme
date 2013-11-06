@@ -1,21 +1,31 @@
+* {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 .js, .js * {
   transition: 10s
 }
 
 html {
+  color: #494949;
   font-family: 'Ubuntu Mono', monospace;
   font-size: 14px;
-  color: #494949;
 }
 
 body {
-  width: 41rem;
-  width: 72ch;
+  margin: 0 auto;
+  max-width: 41rem;
+  max-width: 90ch;
+  min-width: 7rem;
+  min-width: 30ch;
+  padding: 1rem;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6, th, thead, tfoot {
-  font-size: 1rem;
   color: black;
+  font-size: 1rem;
   font-weight: bold;
   margin: 0;
   padding: 0;
@@ -26,17 +36,17 @@ h2 {
 }
 
 button {
-  border: 0px;
   background: none;
+  border: 0px;
+  cursor: pointer;
   font-family: inherit;
   outline: 0 none transparent;
-  cursor: pointer;
 }
 
 a, a:active, a:visited, button {
+  border-bottom: 1px dashed black;
   color: black;
   text-decoration: none;
-  border-bottom: 1px dashed black;
 }
 
 a:focus, a:hover, button:focus, button:hover {
