@@ -4,7 +4,7 @@
 </header>
 
 <% require 'time'; posts.reverse.each do |post|
-  if post.data <= DateTime.now %>
+  if post.date <= DateTime.now %>
   <%= yield_post(post, template: :_post_excerpt) %>
 <% end
 end%>

@@ -1,4 +1,10 @@
 <article>
+<% if post.nil? %>
+  <header>
+    <h1>Nothing here</h1>
+  </header>
+  <p>(function notFound() { return '(' + notFound.toString() + ')()'; })()</p>
+<% else %>
   <header>
     <h1><%= post.title %></h1>
     <p rel="author">By <%= post.author %></p>
@@ -23,4 +29,5 @@
     <p><%= Blograph.meta['locale']['feedback'] %></p>
     <% if !post.children.empty? %><p>This post has <%= post.children.length.to_words %> <abbr title="<%= Blograph.meta['locale']['children'] %>"><%= "child".pluralize post.children.length %></abbr>: <%= post.children.map { |p| a p.link, p.title, rel: 'down', title: "#{p.excerpt}&hellip;" }.to_sentence %></p><% end %>
   </footer>
+<% end %>
 </article>
