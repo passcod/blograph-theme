@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<%
+  require 'securerandom'
+  require 'time'
+  def date_to_puid(date)
+    date.strftime "%m%Y%d-%M%H-4%j-a1d5-%s%S"
+  end
+
+  on_master = !params.include?('ref') || params['ref'] == 'master'
+  rposts = if on_master
+    posts.reject { |p| p.future? }
+  else
+    posts
+  end.reverse
+
+  url = 'https://blog.passcod.name'
+%>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><%= Blograph.meta['header']['title'] %></title>
+  <subtitle><%= Blograph.meta['header']['subtitle'] %></subtitle>
+  <link href="<%= url %>/feed" rel="self" />
+  <link href="<%= url %>" />
+  <id>urn:uuid:<%= date_to_puid rposts.last.date %></id>
+  <updated><%= rposts.last.date.rfc3339 %></updated>
+
+<% rposts.each do |post| %>
+  <entry>
+    <title><%= Sanitize.clean(post.title) %></title>
+    <link href="<%= url + post.link %>" />
+    <id>urn:uuid:<%= date_to_puid post.date %></id>
+    <updated><%= post.date.rfc3339 %></updated>
+    <summary><%= post.render %></summary>
+    <author>
+      <name><%= Blograph.meta['author'] %></name>
+      <email>ask@passcod.name</email>
+    </author>
+  </entry>
+<% end %>
+</feed>
