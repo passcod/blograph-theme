@@ -116,6 +116,10 @@ article > header p, article > footer p {
   text-align: right;
 }
 
+.flipped pre, .flipped code {
+  background: #222;
+}
+
 .flipped, mark {
   color: #AAA;
   background: black;
