@@ -116,6 +116,14 @@ article > header p, article > footer p {
   text-align: right;
 }
 
+.sidelong {
+  float: right;
+}
+
+.sidelong a {
+  color: inherit;
+}
+
 .flipped pre, .flipped code {
   background: #222;
 }
