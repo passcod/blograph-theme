@@ -1,4 +1,4 @@
-<article>
+<article class="h-entry e-content">
 <% if post.nil? %>
   <header>
     <h1>Nothing here</h1>
@@ -6,21 +6,21 @@
   <p>(function notFound() { return '(' + notFound.toString() + ')()'; })()</p>
 <% else %>
   <header>
-    <h1><%= post.title %></h1>
-    <p rel="author">By <%= post.author %></p>
-    <p><%= post.date <= DateTime.now ? 'P' : 'To be p' %>osted on <a href="<%= post.link %>"><date datetime="<%= post.date.rfc3339 %>" title="<%= post.date.rfc3339 %>"><%= post.date.strftime Blograph.meta['locale']['date'] %></date></a></p>
+    <h1 class="p-name"><%= post.title %></h1>
+    <p rel="author" class="p-author">By <%= post.author %></p>
+    <p><%= post.date <= DateTime.now ? 'P' : 'To be p' %>osted on <a href="<%= post.link %>" class="u-url"><date datetime="<%= post.date.rfc3339 %>" title="<%= post.date.rfc3339 %>" class="dt-published"><%= post.date.strftime Blograph.meta['locale']['date'] %></date></a></p>
     <% if !post.tags.empty?; tags = post.tags.dup
       %><p>This <% if tags.length == 1 %>is a <% end %><%=
-        a "/tag/#{tags.first}", tags.first, rel: 'main tag'
+        a "/tag/#{tags.first}", tags.first, rel: 'main tag', class: 'p-category'
         %> <%
         unless tags.length == 1
           tags.shift  
           %>is also tagged as <%= tags.map { |t|
-            a "/tag/#{t}", t, rel: 'tag' }.to_sentence %><%
+            a "/tag/#{t}", t, rel: 'tag', class: 'p-category' }.to_sentence %><%
         end
       %></p><%
     end %>
-    <% if !post.parents.empty? %><p>It has <%= post.parents.length.to_words %> <abbr title="<%= Blograph.meta['locale']['parents'] %>"><%= "parent".pluralize post.parents.length %></abbr>: <%= post.parents.map { |p| a p.link, p.title, rel: 'up', title: "#{p.excerpt}&hellip;" }.to_sentence %></p><% end %>
+    <% if !post.parents.empty? %><p>It has <%= post.parents.length.to_words %> <abbr title="<%= Blograph.meta['locale']['parents'] %>"><%= "parent".pluralize post.parents.length %></abbr>: <%= post.parents.map { |p| a p.link, p.title, rel: 'up', title: "#{p.excerpt}&hellip;", class: 'u-in-reply-to' }.to_sentence %></p><% end %>
   </header>
   <%= post.render %>
   <footer>

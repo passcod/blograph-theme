@@ -1,5 +1,6 @@
-<article>
-  <h1><%= a post.link, post.title %></h1>
-  <p><date datetime="<%= post.date.rfc3339 %>"><%= post.date.strftime Blograph.meta['locale']['date'] %>
-    &mdash; <%= Sanitize.clean(post.excerpt, Sanitize::Config::RESTRICTED).strip %>&hellip;</p>
+<article class="h-entry">
+  <h1><%= a post.link, post.title, class: 'p-name u-url' %></h1>
+  <p class="p-summary"><date datetime="<%= post.date.rfc3339 %>" class="dt-published"><%=
+    post.date.strftime Blograph.meta['locale']['date'] %> &mdash; <%=
+    Sanitize.clean(post.excerpt, Sanitize::Config::RESTRICTED).strip %>&hellip;</p>
 </article>
